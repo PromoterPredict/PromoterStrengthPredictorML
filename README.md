@@ -1,10 +1,10 @@
 # PromoterStrengthPredictorML
-Machine Learning using Multivarient Linear Regression to Predict the Strength of a Promoter
+Machine Learning using Multivariate Linear Regression to Predict the Strength of a Promoter
 
 Quick summary
 
-This website serves as a Python based machine learning platform to predict the strength of sigma seventy core promoters in Escherichia coli in a manner that subverts the need for tedious experiments and is cost effective.
-Here multi-variate linear regression has been used where the parameters were optimized with gradient descent. The training data set used here is the Anderson promoter collection developed and characterized by the Anderson lab at UC Berkeley.
+This website presents a Python based machine learning platform to predict the strength of sigma70 core promoters in Escherichia coli to ease the need for laborious and expensive experiments.
+Here multi-variate linear regression has been used where the parameters were optimized with gradient descent. The training data set used here is the promoter collection characterized by the Anderson lab at UC Berkeley (http://parts.igem.org/Promoters/Catalog/Anderson).
 
 How to Set it up
 
@@ -35,7 +35,7 @@ Contribution Guidelines
 * -35 SEQUENCE : TGTGTG
 * -10 SEQUENCE : TGATGA
 
-* SEPERATOR *
+* SEPARATOR *
 
 * -35 AND -10 SEQUENCE THE USER ENTERS AS DYNAMIC INPUT WHICH IS TO BE ADDED TO THE DATA SET (TGATGATGTGTG#)   
 * -35 SEQUENCE : TGATGA
@@ -48,7 +48,7 @@ Contribution Guidelines
 * -35 SEQUENCE2 : ATGATG
 * -10 SEQUENCE2 : GATTGA
 
-* SEPERATOR #
+* SEPARATOR #
 
 * THE STRENGTH FOR THE RESPECTIVE -35 AND -10 SEQUENCE THE USER ENTERS AS DYNAMIC INPUT WHICH IS TO BE ADDED TO THE DATA SET(0.5&)
 * STRENGTH : 0.5
