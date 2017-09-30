@@ -1,0 +1,834 @@
+$def with (form, text)
+
+<!doctype html>
+
+<html>
+
+<head>
+    <title>Promoter Strength Prediction</title> 
+    <link rel="icon" type="image/png" href="/static/images/favicon1.png">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="pragma" content="no-cache" />         
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/B930557C-390A-6E4C-81C1-342E0737FD5D/main.js" charset="UTF-8"></script><script type="text/javascript" src="/static/jquery.js"></script> 
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ <link rel="stylesheet" href="/static/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    <link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.min.css"  media="screen,projection"/>                
+    <!--<link rel="stylesheet" type="text/css" href="/static/tutorial.css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="/static/main.css">-->
+    <style type="text/css">
+        body{
+            margin: 0%;
+            font-family: "Lato", sans-serif;
+        }
+
+        h1{
+            font-size: xx-large;
+            color: #26a69a;
+        }
+
+        h2{
+            font-size: x-large;
+            color: #26a69a;
+        }
+
+        form{
+            padding: 2%;
+            margin: 2%;
+            margin-left: 15%;
+            width: 75%; 
+        }
+
+        label{
+            font-size: 1.2em;
+            color: #000000;
+        }
+
+        table{
+            font-size: 1.2em;
+        }
+
+        th{
+            color: #26a69a;
+        }
+
+        input{
+            font-size: 1.2em;
+        }
+
+        nav{
+            background-color: #26a69a;
+        }
+
+        #foo{
+            padding: 2%;
+            margin: 2%;
+        }
+
+        #pass
+        {
+            display: none;
+        }
+
+        #introPic{
+            width: 100%;
+            margin-top: 10%;
+            padding: 5%;
+        }
+
+        #reg{
+            width: 100%;
+        }
+
+        /*
+        #yesDynamic{
+            display: none;
+        }
+        */
+        .container{
+            padding: 4%;
+            width: 80%; 
+        }
+
+        .row{
+            margin: 1%;
+            padding: 1%;
+        }
+
+        .nav-wrapper{
+            margin-left: 5%;
+        }
+
+        .right{
+            float: right !important;
+            margin-left: 5%;
+        }
+
+        .para{
+            text-align: justify;
+            font-size: 1.2em;
+            line-height: 2em;
+        } 
+
+        .steps{
+            width: 100%;
+            padding: 2%;
+            margin: 2%;
+        } 
+
+        .teamRamit{
+            width: 100%;
+            padding: 2%;
+            margin: 2%; 
+        }
+
+        .teamAshok{
+            width: 100%;
+            height: 230px;
+            padding: 2%;
+            margin: 2%; 
+        }
+
+        .teamKeshav{
+            width: 100%;
+            padding: 2%;
+            margin: 2%; 
+        }
+
+        .individuals{
+            text-align: justify;
+            font-size: 1.2em;
+            line-height: 2em;            
+        }
+
+        .cen{
+            text-align: center;
+            align-content: center;
+            align-items: center;
+        }
+
+        .codeSnippet{
+
+        }
+
+        .highlight{
+            color: #26a69a;
+        }
+
+        .copyrightPrint{
+    background-color: #26a69a;
+}
+
+.copyright{
+    color: #FFFFFF;
+    font-family: "Lato", sans-serif;
+    padding: 2%;
+    font-size: 1.2em;
+    line-height: 2em;
+    text-align: justify;    
+}        
+
+    </style>              
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+
+            //jQuery("#all").css("display","none"); 
+        /*
+        jQuery("#chooseDynamicNo").click(function(){
+        jQuery("#yesDynamic").css("display", "none");
+        jQuery("#there").css("display", "none");
+        }); 
+
+        jQuery("#chooseDynamicYes").click(function(){
+        jQuery("#yesDynamic").css("display", "block");
+        jQuery("#there").css("display", "block");
+        });
+        */           
+            
+            var s = "";
+            var el = "";
+            var num = 0;
+            var counter = 0;
+            var finalString = "";
+            var j = "";
+
+            //Ensure non of the input fields have spaces
+            jQuery('.data').live('keypress', function(e) {
+                if (e.which == 32)
+                    return false;
+            });
+
+            //Get Count Value - Number of datasets 
+            jQuery("#Hit").click(function(){
+                if (counter > 0) {
+                    jQuery(".test").val(""); 
+                    jQuery(".testRes").val("");   
+                    jQuery(".test").remove(); 
+                    jQuery(".testRes").remove(); 
+                    jQuery(".lab").remove();
+                    jQuery(".r1").remove();
+                    //jQuery("#all").css("display","none");                    
+                }
+                
+                s = jQuery("#count").val();
+                //s += jQuery("#password").val();
+
+                //console.log(s);
+                
+                // convert s to integer and store in num
+                num = parseInt(s);
+                console.log(num);
+                
+                
+
+                if (num > 0) {
+                 jQuery("#there").append("<div class=\"row r1\"><div class=\"col s12 m12 l12 c1\"><label class=\"lab\">Enter the Datasets</label></div></div>");
+             }
+
+                //Creating 's'* 2 number of input fields 
+                for (var i = 0; i < num ; i++) {
+
+                    jQuery("#there").append(
+                        "<div class=\"row r1\"><div class=\"col s12 m4 l4 c1\"><input class=\"test\" type=\"text\"  placeholder=\"enter -35\" required></div><div class=\"col s12 m4 l4 c1\"><input class=\"test\" type=\"text\"  placeholder=\"enter -10\" required></div><div class=\"col s12 m4 l4 c1\"><input class=\"testRes\" type=\"text\"  placeholder=\"enter strength\" required></div></div>");
+                    //"<p class=\"test\" id=\"ll\" name=\"ll\">lol jk bye</p>"
+
+                    //jQuery("#all").before("<input class=\"test\" type=\"text\"  placeholder=\"enter -10\" required>");
+
+                    //jQuery("#all").before("<input class=\"testRes\" type=\"text\"  placeholder=\"enter output\" required></div>");
+                }
+                //jQuery("#all").css("display","block");
+                
+                /*
+                jQuery('.test').each(function(){
+                   //console.log(this);
+                   //el = jQuery(this);
+                   el = jQuery(this).val();
+                   console.log(el);
+                   //console.log(jQuery("#ll").val()); <--- for input type
+                   //el = jQuery(this).text(); <-- for pararaph and other related elements
+
+                });
+                */
+                counter +=1;  
+                
+                /*
+                jQuery('.test').each(function(index, item) {
+                console.log(jQuery(item).val());
+                });
+                
+
+
+                jQuery.each(jQuery('#Datasets .test'), function() {
+                console.log(this);
+                var a = this;
+                console.log(jQuery(a).val());    
+                }); 
+                */
+                
+            });
+
+            jQuery(".button1").click(function() {
+
+                jQuery('.predict').each(function(){
+                   el = jQuery(this).val();
+
+                   finalString += el; 
+               });
+                finalString +='*';
+                
+                
+                jQuery('.test').each(function(){
+                   el = jQuery(this).val();
+
+                   finalString += el; 
+               });
+                finalString += '#';
+                jQuery('.testRes').each(function(){
+                   el = jQuery(this).val();
+
+                   finalString += el + "&"; 
+               });                    
+                console.log(finalString);
+                var input_string = $$("input#textfield").val();
+                jQuery.ajax({
+                    type: "POST",
+                    data: 
+                    {
+                            //textfield : input_string
+                            textfield : finalString
+                        },
+                        success: function(data) {
+                            jQuery('#foo').html(data).hide().fadeIn(1500);
+                        },
+                    });
+                finalString = "";
+                return false;
+            });
+        });            
+    </script>        
+</head>
+
+<body>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper">
+              <a href="#intro" class="brand-logo">
+              Promoter Strength Predictor</a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#model">Model</a></li>
+                <li><a href="#data">Dataset</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="container">
+
+
+<section id="model">
+
+    <div class="row">
+        <div class="col s12 m12 l12">       
+            <h2><center>Time To Predict</center></h2>
+        </div>
+    </div>    
+       
+    <form class="form" method="post" id="pass"> 
+        $:form.render()  
+    </form>
+
+    <form id="countDataset">
+
+         <!--
+         <div class="row">
+            <div class="col s12 m12 l12"> 
+                <p class="para"> 
+                Would you like to try our dynamic model ?               
+                </p>
+                <a id ="chooseDynamicYes" class="waves-effect waves-light btn">Yes</a>
+                <a id ="chooseDynamicNo" class="waves-effect waves-light btn">No</a>                
+            </div>   
+        </div>
+        -->
+
+            <div class="row">
+            <div class="col s12 m12 l12"> 
+            <p class="para">
+                View the <a href="#model">Datset being used</a> and how the <a href="#app">application works</a>.               
+            </p>
+            </div>   
+        </div> 
+    
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <label> Enter -35 Hexamer Sequence </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m8 l8">
+                <input type="text" class="predict" id="pred" name="pred" placeholder="6 Letter Hexamer in Capitals Eg TACAAC">
+            </div>   
+        </div> 
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <label> Enter -10 Hexamer Sequence  </label>
+            </div>
+        </div>        
+        <div class="row">
+            <div class="col s12 m8 l8"> 
+                <input type="text" class="predict" id="pred2" name="pred2" placeholder="6 Letter Hexamer in Capitals Eg TACAGA"> 
+            </div>        
+        </div> 
+
+        <div class="row">
+            <div class="col s12 m12 l12">         
+                <label><span class="highlight">Dynamic model :</span> Enter the Number of Datasets you would like to Enter <span class="highlight">( Optional )</span>  </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s6 m6 l6"> 
+                <input type="text" id="count" name="count" placeholder="Enter a Number Eg. 2, 3, 7 etc.">
+            </div> 
+            <div class="col s6 m6 l6">       
+                <!--<input type="button" name="Submit" id="Hit" value="Go">-->
+                <a class="waves-effect waves-light btn" id="Hit"><i class="material-icons">add</i></a>
+            </div>
+        </div> 
+        
+
+        <div id="there">
+
+        </div>
+
+        <div class="row" id="all1">
+            <div class="col s12 m12 l12">
+                <p class="para">After you click on the predict button scroll down your output should be displayed within 2 seconds</p>             
+        </div>
+        </div>
+
+        <div class="row" id="all1">
+            <div class="col s12 m12 l12">   
+                <!--<input type="submit" class="button1" id="all" value="All Done !"/>--> 
+                <button id="all" class="btn waves-effect waves-light button1" type="submit" name="action" value="All Done !">Predict<i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>                  
+    </form>
+        <!--
+        <form id="Datasets">
+        </form>
+    -->
+    <div id="foo">
+        $text
+    </div> 
+
+
+    <div id="app" class="row">
+        <div class="col s12 m12 l12">       
+            <h2><center>So How Does Our Application Work ?</center></h2>
+        </div>
+    </div>
+
+         <div class="row">
+            <div class="col s12 m12 l12"> 
+                <p class="para">This website serves as a Python based machine learning platform to predict the strength of &sigma;<sup>70</sup> core promoters in Escherichia coli in a manner that subverts the need for tedious experiments and is cost effective.</p>
+            </div>   
+        </div> 
+
+         <div class="row">
+            <div class="col s12 m12 l12"> 
+                <p class="para">The biopython routines were used to construct the PSSM
+                (<a href="http://www.biopython.org" target="_blank">Biopython</a>)
+                </p>
+            </div>   
+        </div>
+
+         <div class="row">
+            <div class="col s12 m12 l12"> 
+                <p class="para">Here the user will have to enter the -10 and -35 regions in the input boxes and the platform will return the strength of the input promoter relative to the strength of the strongest Anderson promoter. The dynamic model is optinal and the user can click "Predict" once the Sequences are entered.            
+                </p>
+            </div>   
+        </div>                  
+
+         <div class="row">
+            <div class="col s12 m8 l8 offset-m2 offset-l2"> 
+<video width="100%" controls>
+  <source src="/static/videos/movie.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+            </div>   
+        </div> 
+         
+    
+</section>
+
+
+    <section id="intro">
+        <div class="row">
+            <div class="col s12 m12 l12"> 
+                <h1><center>Promoter Strength Predictor</center></h1>
+            </div>
+        </div>        
+        <div class="row">
+            <div class="col s12 m6 l6"> 
+                <p class="para">The advent of genetic engineering over the last few decades has opened up new avenues for biologists. One of them has been expressing proteins in organisms of their choice and altering the level of protein expression. Escherichia coli  has been the lab workhorse and ideal model organism for many years, given the ease with which it can be grown in a lab, its extensive characterization of a variety of strains and high level of safety. The sigma 70 promoters in the organism are ubiquitously used by genetic engineers to initiate transcription. Yet, their characterization in a lab remains to be a time consuming and expensive process.</p>
+            </div>
+            <div class="col s12 m6 l6"> 
+                <img id="introPic" src="/static/images/Cricket.png">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m12 l12"> 
+                <p class="para">This website serves as a Python based machine learning platform to predict the strength of sigma seventy core promoters in Escherichia coli in a manner that subverts the need for tedious experiments and is cost effective.</p>
+            </div>   
+        </div> 
+        <div class="row">
+            <div class="col s12 m12 l12"> 
+                <p class="para">Here multi-variate linear regression has been used where the parameters were optimized with gradient descent. The training data set used here is the Anderson promoter collection developed and characterized by the Anderson lab at UC Berkeley. This particular set was chosen given that this is highly used by members of the academia and teams that participate in the iGEM(international Genetically Engineered Machines Competition). The corollary is that given the highly characterized nature of data, these collection of promoters are more robust, hence training the linear model with these promoters will lead to a model whose predictions can be expected to be robust for other promoters that have not been as extensively characterized as the Anderson promoters.</p>
+            </div>   
+        </div>
+        <div class="row">
+            <div class="col s12 m12 l12"> 
+                <p class="para">The input variables here are the -10 and -35 motifs present in the promoters. A Position Specific Scoring Matrix(PSSM) is constructed to capture a generative model of the -10 and -35 promoter regions. These scores were then regressed using gradient descent to minimize a cost function against a set of relative promoter strengths provided by the Anderson lab. The cost function was minimized when gradient descent ran 10000 times at a learning rate of 0.015. As an addendum, Leave One Out Cross Validation(LOOCV) was performed on the model and an optimized R2(correlation co-efficient) was calculated to be 0.70,indicating the goodness of fit.</p>
+            </div>   
+        </div>                                                       
+    </section>
+    <section id="data">
+        <div class="row">
+            <div class="col s12 m12 l12"> 
+                <h2><center>What Is The Dataset Being Used ?</center></h2>
+            </div>
+        </div>
+         <div class="row">
+            <div class="col s12 m12 l12"> 
+                <p class="para">This is the Dataset of -35 and -10 Sequences along with their repective strengths which is being used to make the Predictions.</p>
+            </div>   
+        </div> 
+        <div class="row">
+            <div class="col s12 m12 l12"> 
+                <table class="centered">
+                    <thead>
+                      <tr>
+                          <th>Promoter ID</th>
+                          <th>-35 Sequence</th>
+                          <th>-10 Sequence</th>
+                          <th>PSSM -35</th>
+                          <th>PSSM -10</th>
+                          <th>Actual Strength</th>
+                      </tr>
+                  </thead>
+
+                  <tbody>
+                      <tr>
+                        <td>BBa_J23100</td>
+                        <td>TTGACG</td>
+                        <td>TACAGT</td>
+                        <td>8.80</td>
+                        <td>7.05</td>
+                        <td>1.0</td>
+                    </tr>
+                    <tr>
+                        <td>BBa_J23101</td>
+                        <td>TTTACA</td>
+                        <td>TATTAT</td>
+                        <td>8.50</td>
+                        <td>8.65</td>                        
+                        <td>0.7</td>
+                    </tr>
+                    <tr>
+                        <td>BBa_J23102</td>
+                        <td>TTGACA</td>
+                        <td>TACTGT</td>
+                        <td>8.94</td>
+                        <td>7.79</td>                        
+                        <td>0.86</td>
+                    </tr>
+                    <tr>
+                        <td>BBa_J23103</td>
+                        <td>CTGATA</td>
+                        <td>GATTAT</td>
+                        <td>5.76</td>
+                        <td>7.60</td>                        
+                        <td>0.01</td>
+                    </tr>
+                    <tr>
+                        <td>BBa_J23104</td>
+                        <td>TTGACA</td>
+                        <td>TATTGT</td>
+                        <td>8.94</td>
+                        <td>8.22</td>                        
+                        <td>0.72</td>
+                    </tr>
+                    <tr>
+                        <td>BBa_J23105</td>
+                        <td>TTTACG</td>
+                        <td>TACTAT</td>
+                        <td>8.36</td>
+                        <td>8.22</td>                        
+                        <td>0.24</td>
+                    </tr>
+                    <tr>
+                        <td>BBa_J23106</td>
+                        <td>TTTACG</td>
+                        <td>TATAGT</td>
+                        <td>8.36</td>
+                        <td>7.48</td>                        
+                        <td>0.47</td>
+                    </tr>
+                    <tr>
+                        <td>BBa_J23107</td>
+                        <td>TTTACG</td>
+                        <td>TATTAT</td>
+                        <td>8.36</td>
+                        <td>8.05</td>                        
+                        <td>0.36</td>
+                    </tr>
+                    <tr>
+                        <td>BBa_J23108</td>
+                        <td>CTGACA</td>
+                        <td>TATAAT</td>
+                        <td>7.16</td>
+                        <td>7.91</td>                        
+                        <td>0.51</td>
+                    </tr> 
+                    <tr>
+                        <td>BBa_J23109</td>
+                        <td>TTTACA</td>
+                        <td>GACTGT</td>
+                        <td>8.50</td>
+                        <td>6.73</td>                        
+                        <td>0.04</td>
+                    </tr>
+                    <tr>
+                        <td>BBa_J23110</td>
+                        <td>TTTACG</td>
+                        <td>TACAAT</td>
+                        <td>8.36</td>
+                        <td>7.48</td>                        
+                        <td>0.33</td>
+                    </tr>
+                    <tr>
+                        <td>BBa_J23111</td>
+                        <td>TTGACG</td>
+                        <td>TATAGT</td>
+                        <td>8.80</td>
+                        <td>7.48</td>                        
+                        <td>0.58</td>
+                    </tr>
+                    <tr>
+                        <td>BBa_J23112</td>
+                        <td>CTGATA</td>
+                        <td>GATTAT</td>
+                        <td>5.76</td>
+                        <td>7.60</td>                        
+                        <td>0.0</td>
+                    </tr>
+                    <tr>
+                        <td>BBa_J23113</td>
+                        <td>CTGATG</td>
+                        <td>GATTAT</td>
+                        <td>5.76</td>
+                        <td>7.60</td>                        
+                        <td>0.01</td>
+                    </tr>
+                    <tr>
+                        <td>BBa_J23114</td>
+                        <td>TTTATG</td>
+                        <td>TACAAT</td>
+                        <td>6.96</td>
+                        <td>7.48</td>                        
+                        <td>0.1</td>
+                    </tr>
+                    <tr>
+                        <td>BBa_J23115</td>
+                        <td>TTTATA</td>
+                        <td>TACAAT</td>
+                        <td>7.10</td>
+                        <td>7.48</td>                        
+                        <td>0.15</td>
+                    </tr>
+                    <tr>
+                        <td>BBa_J23116</td>
+                        <td>TTGACA</td>
+                        <td>GACTAT</td>
+                        <td>8.94</td>
+                        <td>7.17</td>                        
+                        <td>0.16</td>
+                    </tr>
+                    <tr>
+                        <td>BBa_J23117</td>
+                        <td>TTGACA</td>
+                        <td>GATTGT</td>
+                        <td>8.94</td>
+                        <td>7.17</td>                        
+                        <td>0.06</td>
+                    </tr> 
+                    <tr>
+                        <td>BBa_J23118</td>
+                        <td>TTGACG</td>
+                        <td>TATTGT</td>
+                        <td>8.80</td>
+                        <td>8.22</td>                        
+                        <td>0.56</td>
+                    </tr>           
+                </tbody>
+            </table>
+        </div>
+    </div>     
+</section> 
+
+<section id="codeSnippet">
+
+<div class="row">
+<div class="col s12 m12 l12">
+<h2><center>How Does the Algorthim Work ?</center></h2>
+</div>
+</div>
+
+<div class="row">
+<div class="col s12 m12 l12">
+<script src="https://gist.github.com/KeshavAdityaRP/568e13ceb8226e5a0c8975ec05357948.js"></script>
+</div>
+</div>
+</section>
+
+<section id="about">
+    <div class="row">
+        <div class="col s12 m12 l12">       
+            <h2><center>Who We Are And How Do You Reach Us</center></h2>
+        </div>
+    </div>
+      <div class="row">
+        <div class="col s12 m4 l4">
+        <img class="teamAshok" src="/static/images/Ashok.jpg">       
+        </div>
+        <div class="col s12 m8 l8">
+        <p class="individuals">
+        <i>
+Ashok Palaniappan is very interested in applying computational thinking to solve difficult biological problems. He has demonstrated expertise in the development of computational methods, notably the use of Fourier spectrum analysis to detect periodicity in evolutionary conservation of protein secondary structure. 
+
+        </p>        
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12 m12 l12">
+        <p class="individuals">
+        <i>        
+He has shown ability to develop novel approaches for difficult biological problems, notably the identification of stage-specific biomarkers in colon cancer tumorigenesis, progression and metastasis. Using the differential ligand affinity and free energy of binding, he and co-worker were able to computationally analyze the role of P-glycoprotein polymorphisms in patient resistance to therapy.
+        </i>    
+</i>
+</p>       
+        </div>
+        </div> 
+
+      <div class="row">
+        <div class="col s12 m12 l12">
+        <p class="individuals">
+        <i>        
+Ashok obtained his PhD from the University of Illinois at Urbana-Champaign, USA (2005). He is Senior Assistant Professor in the School of Chemical and Biotechnology, Sastra University, Thanjavur 613401. 
+
+1. A. Palaniappan, E. Jakobsson,  Fourier analysis of conservation patterns in protein secondary structure, Computat Struct Biotechnol J 2017, 15, 265-271.
+2. A. Palaniappan, K. Ramar, S. Ramalingam, Computational identification of novel stage specific biomarkers in colorectal cancer progression. PLOS ONE 2016, 11(5): e0156665. doi:10.1371/journal.pone.0156665 
+3. S. Varghese, A. Palaniappan, Computational studies of P-glycoprotein polymorphisms in antiepileptic drug resistance mechanism, bioRxiv 2016, 095059; doi: https://doi.org/10.1101/095059.
+        </i>    
+</i>
+</p>       
+        </div>
+        </div>      
+
+      <div class="row">
+        <div class="col s12 m4 l4">
+        <img class="teamRamit" src="/static/images/Ramit.jpg">       
+        </div>
+        <div class="col s12 m8 l8">
+        <p class="individuals">
+        <i>
+Ramit is an undergraduate student in his final year studying Biotechnology Engineering at Sri Venkateswara College of Engineering, Anna University. He is looking to carve out a career in synthetic biology given the exciting possibilities that the field has. He was an integral part of his colleges iGEM team in 2016. He is the team of leader of his college’s 2017 iGEM team. 
+        </i>    
+        </p>        
+        </div>
+      </div> 
+
+      <div class="row">
+        <div class="col s12 m12 l12">
+        <p class="individuals">
+        <i>        
+After learning about the exciting prospects of Machine learning algorithms, he intends to apply them to biological data sets to make meaningful inferences from them or build tools that can save time and money in the lab for Biologists. He believes that a true product of engineering is often one that is born out of a mixture of different fields and that combining the prowess of two burgeoning fields of the 21st century – Synthetic biology and Machine Learning could lead to exciting products and services in the future. 
+</i>
+</p>       
+        </div>
+        </div>
+
+      <div class="row">
+        <div class="col s12 m4 l4">
+        <img class="teamKeshav" src="/static/images/Keshav.jpg">       
+        </div>
+        <div class="col s12 m8 l8">
+        <p class="individuals">
+        <i>
+           Keshav is currently a final year undergraduate student studying computer science engineering at Sri Venkateswara College of Engineering, Anna University. He is very passionate about programming and is looking to become a software developer.
+        </i>    
+        </p>        
+        </div>
+      </div> 
+
+      <div class="row">
+        <div class="col s12 m12 l12">
+        <p class="individuals">
+        <i>        
+        He is a full-stack web developer and has also deployed Machine Learning algorithms for various problems. He's starting to explore new and exciting avenues such as deep learning and looks to implement and work with sophisticated learning algorithms in the future. 
+        </i>
+        </p>       
+        </div>
+        </div> 
+        
+</section>
+
+</div> 
+
+<section id="contact">
+    <div class="row">
+        <div class="col s12 m12 l12">       
+            <h2><center>Contact Us</center></h2>
+        </div>
+    </div> 
+
+         <div class="row">
+            <div class="col s6 m6 l6"> 
+                <p class="para cen">
+                <i class="fa fa-mobile fa-4x" aria-hidden="true"></i>
+                <br>
+                Ashok : +91 8056037107<br>
+                Ramit Kumar : +91 9940149332<br>
+                Keshav Aditya R.P :+91 7299926896 </p>
+            </div> 
+            <div class="col s6 m6 l6"> 
+                <p class="para cen">
+                <i class="fa fa-envelope fa-4x" aria-hidden="true"></i>
+                <br>
+                Ashok: aplnppn@gmail.com<br>
+                Ramit Kumar: ramitb@rocketmail.com<br>
+                Keshav Aditya R.P: keshavaditya26896@gmail.com<br></p>
+            </div>                        
+        </div>  
+
+</section>
+
+
+
+<section class="copyrightPrint">
+  <div class="row">
+    <div class="col s12 m12 l6">
+      <p class="copyright">
+        &copy; PromoterPredict. All Rights Reserved.
+      </p>
+    </div>
+  </div> 
+</section>
+
+</body>
+</html>
