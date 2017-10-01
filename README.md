@@ -1,6 +1,10 @@
 # PromoterStrengthPredictorML
 Machine Learning using Multivariate Linear Regression to Predict the Strength of a Promoter
 
+
+[![DOI](https://zenodo.org/badge/105354787.svg)](https://zenodo.org/badge/latestdoi/105354787)
+
+
 Quick summary
 
 This website presents a Python based machine learning platform to predict the strength of sigma70 core promoters in Escherichia coli to ease the need for laborious and expensive experiments.
