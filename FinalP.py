@@ -94,7 +94,8 @@ class tutorial:
         tempo = []
         convert10 = []
         convert35 = []
-        flag = 0 # Used to check if the user has entered 
+        flag = 0 # Used to check if the user has entered the sequence for which prediction is required
+        flag2 = 0
         
         # DATA SET : 19 SAMPLES OF -35 AND -10 SEQUENCES WITH RESPECTIVE STRENGTH 
 
@@ -468,22 +469,35 @@ class tutorial:
         print ""
 
         # CONSTRUCTION OF THE MULTIVARIENT LINEAR REGRESSION GRAPH
+        # THE NUMBER 19 REPRESENTS THE DEFAULT SIZE OF THE DATASET PROVIDED 
         fig =plt.figure()
         ax = fig.add_subplot(111, projection = '3d')
         for c, m in [('r','o')]:
-            xs = x[:,1]
+            xs = x[0:19,1]
             print "\t\t\t\t xs Plot for Graph -10 Sequence"
             print(xs)
             print ""
-            ys = x[:,2]
+            ys = x[0:19,2]
             print "\t\t\t\t ys Plot for Graph -35 Sequence"
             print (ys)
             print ""
-            zs = y
+            zs = y[0:19]
             print "\t\t\t\t zs Plot for Graph Strength"
             print (zs)
             print ""
             ax.scatter(xs, ys,zs, c=c, marker =m)
+        
+        md = len(y)
+        print "\t\t\t\t Total Number of Elements in the Dataset" 
+        print md
+        print ""   
+        if (md > 19):
+            flag2 = 1
+            for c,m in [('b','o')]:
+                xd = x[19:,1]
+                yd = x[19:,2]
+                zd = y[19:]
+                ax.scatter(xd, yd, zd, c=c, marker =m)
         
         ax.set_xlabel('-10 Hexamer')
         ax.set_ylabel('-35 Hexamer')
@@ -508,13 +522,17 @@ class tutorial:
             finalStrength = strength
             #print 'Predicted strength of promoter : %s' % (finalStrength)
             #print 'Correlation Measure Sqare Value : %s' % (R)
-            pri = '<div class="col s12 m5 l5"><p class="para"><span class="highlight"><i class="fa fa-bullseye fa-2x" aria-hidden="true"></i></span><br><span class="highlight">Predicted Strength</span><br> %s </p><br><br>' % finalStrength
-            rsqare = '<p class="para"><span class="highlight"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i></span><br><span class="highlight">Correlation Measure Sqare Value</span> <br> %s </p></div></div>' % R
+            pri = '<div class="col s12 m5 l5"><p class="para"><span class="highlight"><i class="fa fa-bullseye fa-2x" aria-hidden="true"></i></span><br><span class="highlight">ln(Predicted Strength)</span><br> %s </p>' % finalStrength
+            key1 = '<p class="para"><span class="highlight redDot"><i class="fa fa-circle" aria-hidden="true"></i></span><br><span class="highlight">Existing Dataset</span></p>'
+            key2 = '<p class="para"><span class="highlight blueDot"><i class="fa fa-circle" aria-hidden="true"></i></span><br><span class="highlight">User Added Data Points</span> <br> (If Dynamic Model in Use)</p></div></div>'
+            #rsqare = '<p class="para"><span class="highlight"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i></span><br><span class="highlight">Correlation Measure Sqare Value</span> <br> %s </p></div></div>' % R
         else:
             pri = '<div class="col s12 m5 l5"><p></p>'
-            rsqare = '<p class="para"><span class="highlight"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i></span><br><span class="highlight">Correlation Measure Sqare Value</span> <br> %s </p></div></div>' % R
+            key1 = '<p class="para"><span class="highlight redDot"><i class="fa fa-circle" aria-hidden="true"></i></span><br><span class="highlight">Existing Dataset</span></p>'
+            key2 = '<p class="para"><span class="highlight blueDot"><i class="fa fa-circle" aria-hidden="true"></i></span><br><span class="highlight">User Added Data Points</span> <br> (If Dynamic Model in Use)</p></div></div>'          
+            #rsqare = '<p class="para"><span class="highlight"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i></span><br><span class="highlight">Correlation Measure Sqare Value</span> <br> %s </p></div></div>' % R
            
-        return make_text(graph + img_tag + pri + rsqare)
+        return make_text(graph + img_tag + pri + key1 + key2)
 
 if __name__ == '__main__':
     app.run()
