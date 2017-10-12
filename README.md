@@ -63,5 +63,5 @@ Contribution Guidelines
 Owners :
  
 * Ashok Palaniappan
-* Ramit Kumar
+* Ramit B
 * Keshav Aditya R.P

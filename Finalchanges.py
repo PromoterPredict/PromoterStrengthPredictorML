@@ -94,6 +94,9 @@ class tutorial:
         tempo = []
         convert10 = []
         convert35 = []
+        defaultConvert35 = []
+        defaultConvert10 = []
+
         flag = 0 # Used to check if the user has entered the sequence for which prediction is required
         flag2 = 0
 
@@ -249,6 +252,7 @@ class tutorial:
             if((i%2) == 0):
                 instances.append(Seq(userData[i]))
             i += 1
+        defaultInstances = instances[:]
 
         # CREATING A COPY OF INSTANCES ADDED WITH THE -35 SEQUENCE FOR WHICH WE HAVE TO PREDICT THE STRENGTH
         if flag == 1:
@@ -257,11 +261,36 @@ class tutorial:
 
         # CONVERTING THE -35 SEQUENCE INTO A SUITABLE FORMAT
         i = 0
+        while i < len(defaultInstances):
+            defaultConvert35.append(str(defaultInstances[i]))
+            i+=1
+
+        i = 0
         while i < len(instances):
             convert35.append(str(instances[i]))
             i+=1
 
-        # CONSTRUCTION OF THE PSSM MATRIX FOR THE -35 SEQUENCE BASED ON STRENGTH
+        # CONSTRUCTION OF THE PSSM MATRIX FOR THE Default + Dynamic Entries -35 SEQUENCE BASED ON STRENGTH
+
+        md = motifs.create(defaultInstances)
+        #print(md.counts);
+        pwmd = md.counts.normalize(pseudocounts= {'A':0.49, 'C': 0.51, 'G' : 0.51, 'T' : 0.49}                )
+        #print(pwmd)
+        pssmd = pwmd.log_odds()
+        #print(pssmd)
+
+        resultD = []
+
+        def calculateDX(a,b,c,d,e,f,x):
+            temp1 = pssmd[a,0] + pssmd[b,1] + pssmd[c,2] + pssmd[d,3] + pssmd[e,4] + pssmd[f,5]
+            resultD.append([temp1])
+
+        i = 0
+        while i < len(defaultConvert35):
+            calculateDX(defaultConvert35[i][0],defaultConvert35[i][1],defaultConvert35[i][2],defaultConvert35[i][3],defaultConvert35[i][4],defaultConvert35[i][5],i)
+            i +=1
+
+        # CONSTRUCTION OF THE PSSM MATRIX FOR THE Default + Dynamic + Prediction -35 SEQUENCE BASED ON STRENGTH
         m = motifs.create(instances)
         #print(m.counts);
         pwm = m.counts.normalize(pseudocounts= {'A':0.49, 'C': 0.51, 'G' : 0.51, 'T' : 0.49}                )
@@ -305,6 +334,9 @@ class tutorial:
         print "\t\t\t\t X1 Values -35 Sequence"
         print result
         print ""
+        print "\t\t\t\t Default + Dynamic X2 Values -35 Sequence"
+        print resultD
+        print ""
         print "\t\t\t\t Y Values Strength"
         print outputResult
         print ""
@@ -317,7 +349,7 @@ class tutorial:
             if((i%2) != 0):
                 instances2.append(Seq(userData[i]))
             i += 1
-
+        defaultInstances2 = instances2[:]
         # CREATING A COPY OF INSTANCES ADDED WITH THE -10 SEQUENCE FOR WHICH WE HAVE TO PREDICT THE STRENGTH
         if flag == 1:
             instances2.append(Seq(s2))
@@ -325,11 +357,36 @@ class tutorial:
 
         # CONVERTING THE -10 SEQUENCE INTO A SUITABLE FORMAT
         i = 0
+        while i < len(defaultInstances2):
+            defaultConvert10.append(str(defaultInstances2[i]))
+            i+=1
+
+        i = 0
         while i < len(instances2):
             convert10.append(str(instances2[i]))
             i+=1
 
-        # CONSTRUCTION OF THE PSSM MATRIX FOR THE -35 SEQUENCE BASED ON STRENGTH
+        # CONSTRUCTION OF THE PSSM MATRIX FOR THE Default + Dynamic -35 SEQUENCE BASED ON STRENGTH
+
+        md2 = motifs.create(defaultInstances2)
+        #print(md2.counts);
+        pwmd2 = md2.counts.normalize(pseudocounts={'A':0.49, 'C': 0.51, 'G' : 0.51, 'T' : 0.49})
+        #print(pwmd2)
+        pssmd2 = pwmd2.log_odds()
+        #print(pssmd2)
+
+        resultD2 = []
+
+        def calculateDX2(a,b,c,d,e,f,x):
+            temp1 = pssmd2[a,0] + pssmd2[b,1] + pssmd2[c,2] + pssmd2[d,3] + pssmd2[e,4] + pssmd2[f,5]
+            resultD2.append([temp1])
+
+        i = 0
+        while i < len(defaultConvert10):
+            calculateDX2(defaultConvert10[i][0],defaultConvert10[i][1],defaultConvert10[i][2],defaultConvert10[i][3],defaultConvert10[i][4],defaultConvert10[i][5],i)
+            i +=1
+
+        # CONSTRUCTION OF THE PSSM MATRIX FOR THE Default + Dynamic + Prediction -35 SEQUENCE BASED ON STRENGTH
         m2 = motifs.create(instances2)
         #print(m2.counts);
         pwm2 = m2.counts.normalize(pseudocounts={'A':0.49, 'C': 0.51, 'G' : 0.51, 'T' : 0.49})
@@ -372,8 +429,29 @@ class tutorial:
         print "\t\t\t\t X2 Values -10 Sequence"
         print result2
         print ""
+        print "\t\t\t\t Default + Dynamic X2 Values -10 Sequence"
+        print resultD2
+        print ""
         print "\t\t\t\t Y Values Strength"
         print outputResult2
+
+        # CONSTRUCTION OF A MATRIX - PSSM OF -35 AND -10 SEQUENCE
+        ad = []
+        i = 0
+        while i<len(outputResult):
+            ad.append([1,resultD[i][0],resultD2[i][0]])
+            i +=1
+
+        print ""
+        print "\t\t\t\t Default Matrix A (Default Input Matrix : -35 and -10 Sequence)"
+        for x in ad:
+            print x
+            print ""
+
+        print "\t\t\t\t Matrix Default Xd (Default Input Matrix : -35 and -10 Sequence)"
+        xd = np.asarray(ad)
+        print xd
+        print ""
 
         # CONSTRUCTION OF A MATRIX - PSSM OF -35 AND -10 SEQUENCE
         a = []
@@ -425,7 +503,7 @@ class tutorial:
         print ""
 
         # CONSTRUCTING THE HYPOTHESIS
-        hx = x.dot(theta)
+        hx = xd.dot(theta)
         print "\t\t\t\t Hypothesis"
         print hx
         print ""
