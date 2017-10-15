@@ -133,10 +133,12 @@ if (choice == 'y' or choice == 'Y'):
     for i in range(0, numberOfDatasets):
         sequence35 = raw_input("Enter the -35 Hexamer Sequence")
         sequence10 = raw_input("Enter the -10 Hexamer Sequence")
-        strength   = int(raw_input("Enter the strength"))
+        strength   = float(raw_input("Enter the strength"))
         instances.append(Seq(sequence35))
         instances2.append(Seq(sequence10))
         outputResult.append([strength])
+else:
+    pass
 
 choice = raw_input("Do you want to Predict the strength of a Promoter (Y / N)")
 print choice
@@ -149,6 +151,8 @@ if (choice == 'y' or choice == 'Y'):
     instancesP = instances[:]
     instancesP2 = instances2[:]
     flag = 1
+else:
+    pass
 
 # CONVERTING THE -35 SEQUENCE INTO A SUITABLE FORMAT
 i = 0
@@ -315,6 +319,12 @@ print "\t\t\t\t R Sqare Value"
 R = 1 - sumsqmeanysum
 print R
 print ""
+
+if flag == 1:
+    strength = np.array([1.0, resultP, resultP2 ]).dot(theta)
+    print "\t\t\t\t Predicted Strength"
+    print(strength)
+    print ""
 
 # CONSTRUCTION OF THE MULTIVARIENT LINEAR REGRESSION GRAPH
 # THE NUMBER 19 REPRESENTS THE DEFAULT SIZE OF THE DATASET PROVIDED
