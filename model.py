@@ -4,7 +4,6 @@ import math
 import numpy as np
 from pylab import plot, show, xlabel, ylabel
 import random
-import web
 from Bio import motifs
 from Bio.Seq import Seq
 import matplotlib.pyplot as plt
@@ -146,10 +145,10 @@ print choice
 if (choice == 'y' or choice == 'Y'):
     sequence35 = raw_input("Enter the -35 Hexamer Sequence")
     sequence10 = raw_input("Enter the -10 Hexamer Sequence")
-    instances.append(Seq(sequence35))
-    instances2.append(Seq(sequence10))
     instancesP = instances[:]
+    instancesP.append(Seq(sequence35))
     instancesP2 = instances2[:]
+    instancesP2.append(Seq(sequence10))
     flag = 1
 else:
     pass
@@ -167,7 +166,7 @@ while i < len(instances2):
     i+=1
 
 # CONSTRUCTION OF THE PSSM MATRIX FOR THE -35 SEQUENCE BASED ON STRENGTH
-m = motifs.create(instances)
+m = motifs.create(instances[:])
 #print(m.counts);
 pwm = m.counts.normalize(pseudocounts= {'A':0.49, 'C': 0.51, 'G' : 0.51, 'T' : 0.49}                )
 #print(pwm)
@@ -175,7 +174,7 @@ pssm = pwm.log_odds()
 #print(pssm)
 
 if flag == 1:
-    mP = motifs.create(instancesP)
+    mP = motifs.create(instancesP[:-1])
     pwmP = mP.counts.normalize(pseudocounts={'A':0.49, 'C': 0.51, 'G' : 0.51, 'T' : 0.49})
     pssmP = pwmP.log_odds()
     p,o,l,k,m,n = str(sequence35)
@@ -207,7 +206,7 @@ pssm2 = pwm2.log_odds()
 #print(pssm2)
 
 if flag == 1:
-    mP2 = motifs.create(instancesP2)
+    mP2 = motifs.create(instancesP2[:-1])
     pwmP2 = mP2.counts.normalize(pseudocounts={'A':0.49, 'C': 0.51, 'G' : 0.51, 'T' : 0.49})
     pssmP2 = pwmP2.log_odds()
     p2,o2,l2,k2,m2,n2 = str(sequence10)
@@ -244,7 +243,7 @@ while i<len(outputResult):
     b += outputResult[i]
     # TO DEAL WITH LOG(0)
     if b[i] == 0:
-        b[i] = 0.01
+        b[i] = 0.01  # Might change cutoff
     b[i] = math.log(b[i])
     i +=1
 
@@ -255,7 +254,6 @@ for x in b:
     print ""
 
 # FORMATTING MATRIX A AND B TO OBTAIN MATRIX x AND y
-print "hi"
 print "\t\t\t\t Matrix X (Input Matrix : -35 and -10 Sequence)"
 x = np.asarray(a)
 print x
@@ -264,7 +262,6 @@ print "\t\t\t\t Matrix Y (Output Matrix : Strength)"
 y = np.asarray(b)
 print y
 print ""
-print "lol"
 
 # CALLING THE GRADIENT DESCENT FUNCTION TO OBTAIN THE THETA PARAMETER
 m, n = np.shape(x)
@@ -322,7 +319,7 @@ print ""
 
 if flag == 1:
     strength = np.array([1.0, resultP, resultP2 ]).dot(theta)
-    print "\t\t\t\t Predicted Strength"
+    print "\t\t\t\t Predicted ln(Strength)"
     print(strength)
     print ""
 

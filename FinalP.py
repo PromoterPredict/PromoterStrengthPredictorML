@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import time
 
-#                                           NOTE
+#                                          NOTE
 #           HOW THE MODEL WORKS FOR PREDICTING AND ALLOWING THE USER TO ADD MORE DATASETS
 
 # OBTAIN ALL THE INPUTS FROM THE CLIENT AS A SINGLE STRING : Eg TGTGTGTGATGA*TGATGATGTGTG#0.5&
@@ -252,8 +252,9 @@ class tutorial:
 
         # CREATING A COPY OF INSTANCES ADDED WITH THE -35 SEQUENCE FOR WHICH WE HAVE TO PREDICT THE STRENGTH
         if flag == 1:
-            instances.append(Seq(s1))
+            #instances.append(Seq(s1))
             instancesP = instances[:]
+            instancesP.append(Seq(s1))
 
         # CONVERTING THE -35 SEQUENCE INTO A SUITABLE FORMAT
         i = 0
@@ -270,7 +271,7 @@ class tutorial:
         #print(pssm)
 
         if flag == 1:
-            mP = motifs.create(instancesP)
+            mP = motifs.create(instancesP[:-1])
             pwmP = mP.counts.normalize(pseudocounts={'A':0.49, 'C': 0.51, 'G' : 0.51, 'T' : 0.49})
             pssmP = pwmP.log_odds()
             p,o,l,k,m,n = str(s1)
@@ -320,8 +321,9 @@ class tutorial:
 
         # CREATING A COPY OF INSTANCES ADDED WITH THE -10 SEQUENCE FOR WHICH WE HAVE TO PREDICT THE STRENGTH
         if flag == 1:
-            instances2.append(Seq(s2))
+            #instances2.append(Seq(s2))
             instancesP2 = instances2[:]
+            instancesP2.append(Seq(s2))
 
         # CONVERTING THE -10 SEQUENCE INTO A SUITABLE FORMAT
         i = 0
@@ -338,7 +340,7 @@ class tutorial:
         #print(pssm2)
 
         if flag == 1:
-            mP2 = motifs.create(instancesP2)
+            mP2 = motifs.create(instancesP2[:-1])
             pwmP2 = mP2.counts.normalize(pseudocounts={'A':0.49, 'C': 0.51, 'G' : 0.51, 'T' : 0.49})
             pssmP2 = pwmP2.log_odds()
             p2,o2,l2,k2,m2,n2 = str(s2)
@@ -395,7 +397,7 @@ class tutorial:
               b += outputResult[i]
               # TO DEAL WITH LOG(0)
               if b[i] == 0:
-                  b[i] = 0.01
+                  b[i] = 0.01 # change in cutoff
               b[i] = math.log(b[i])
               i +=1
         print ""
@@ -517,17 +519,17 @@ class tutorial:
             finalStrength = strength
             #print 'Predicted strength of promoter : %s' % (finalStrength)
             #print 'Correlation Measure Sqare Value : %s' % (R)
-            pri = '<div class="col s12 m5 l5"><p class="para"><span class="highlight"><i class="fa fa-bullseye fa-2x" aria-hidden="true"></i></span><br><span class="highlight">ln(Predicted Strength)</span><br> %s </p>' % finalStrength
+            pri = '<div class="col s12 m5 l5"><p class="para"><span class="highlight"><i class="fa fa-bullseye fa-2x" aria-hidden="true"></i></span><br><span class="highlight">Predicted ln(Strength)</span><br> %s </p>' % finalStrength
             key1 = '<p class="para"><span class="highlight redDot"><i class="fa fa-circle" aria-hidden="true"></i></span><br><span class="highlight">Existing Dataset</span></p>'
-            key2 = '<p class="para"><span class="highlight blueDot"><i class="fa fa-circle" aria-hidden="true"></i></span><br><span class="highlight">User Added Data Points</span> <br> (If Dynamic Model in Use)</p></div></div>'
-            #rsqare = '<p class="para"><span class="highlight"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i></span><br><span class="highlight">Correlation Measure Sqare Value</span> <br> %s </p></div></div>' % R
+            key2 = '<p class="para"><span class="highlight blueDot"><i class="fa fa-circle" aria-hidden="true"></i></span><br><span class="highlight">User Added Data Points</span> <br> (If Dynamic Model in Use)</p>'
+            rsqare = '<p class="para"><span class="highlight"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i></span><br><span class="highlight">Correlation Measure Sqare Value</span> <br> %s </p></div></div>' % R
         else:
             pri = '<div class="col s12 m5 l5"><p></p>'
             key1 = '<p class="para"><span class="highlight redDot"><i class="fa fa-circle" aria-hidden="true"></i></span><br><span class="highlight">Existing Dataset</span></p>'
-            key2 = '<p class="para"><span class="highlight blueDot"><i class="fa fa-circle" aria-hidden="true"></i></span><br><span class="highlight">User Added Data Points</span> <br> (If Dynamic Model in Use)</p></div></div>'
-            #rsqare = '<p class="para"><span class="highlight"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i></span><br><span class="highlight">Correlation Measure Sqare Value</span> <br> %s </p></div></div>' % R
+            key2 = '<p class="para"><span class="highlight blueDot"><i class="fa fa-circle" aria-hidden="true"></i></span><br><span class="highlight">User Added Data Points</span> <br> (If Dynamic Model in Use)</p>'
+            rsqare = '<p class="para"><span class="highlight"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i></span><br><span class="highlight">Correlation Measure Sqare Value</span> <br> %s </p></div></div>' % R
 
-        return make_text(graph + img_tag + pri + key1 + key2)
+        return make_text(graph + img_tag + pri + key1 + key2 + rsqare)
 
 if __name__ == '__main__':
     app.run()
