@@ -28,7 +28,7 @@ Contribution Guidelines
 
 * Model.py is the standalone. Install dependencies and execute at the OS prompt:
 
-$ python model.py
+  $python model.py
 
 * Finalp.py has the code which is fully interfaced with the web.
 
