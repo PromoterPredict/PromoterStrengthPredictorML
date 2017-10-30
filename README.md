@@ -26,7 +26,7 @@ Dependencies to Interface with the Client
 
 Contribution Guidelines
 
-* Model.py is the standalone. Install dependencies and execute at the OS prompt:
+* Model.py is the standalone. Install latest versiosn of numpy, Biopython and matplotplib and execute at the OS prompt:
 
   $python model.py
 
