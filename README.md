@@ -26,6 +26,9 @@ Dependencies to Interface with the Client
 
 Contribution Guidelines
 
+* Model.py is the standalone. Install dependencies and execute at the OS prompt:
+$ python model.py
+
 * Finalp.py has the code which is fully interfaced with the web.
 
 * HOW THE MODEL WORKS FOR PREDICTING AND ALLOWING THE USER TO ADD MORE DATASETS
@@ -60,7 +63,7 @@ Contribution Guidelines
 * STRENGTH1 : 0.5
 * STRENGTH2 : 0.6
 
-Owners :
+Authors:
  
 * Ashok Palaniappan
 * Ramit B
