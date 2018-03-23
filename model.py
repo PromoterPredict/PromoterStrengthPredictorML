@@ -81,29 +81,6 @@ outputResult = [
 [0.56]
 ]
 
-# STRENGTH OF -35 AND -10 SEQUENCE  - COPY OF outputResult
-outputResult2 = [
-[1],
-[0.7],
-[0.86],
-[0.01],
-[0.72],
-[0.24],
-[0.47],
-[0.36],
-[0.51],
-[0.04],
-[0.33],
-[0.58],
-[0.01],
-[0.01],
-[0.1],
-[0.15],
-[0.16],
-[0.06],
-[0.56]
-]
-
 flag = 0
 convert10 = []
 convert35 = []
@@ -124,14 +101,24 @@ def gradientDescent(x, y, theta, alpha, m, numIterations):
         J_history[i][0] = cost
     return theta, J_history
 
-choice = raw_input("Do you want to enter more Data to the existing Datasets (Y / N)")
-print choice
+choice = raw_input("Do you want to enter more Data to the existing Datasets (Y / N):\t")
+# print choice
 
 if (choice == 'y' or choice == 'Y'):
     numberOfDatasets = int(raw_input("How many Datasets do you want to Add"))
     for i in range(0, numberOfDatasets):
-        sequence35 = raw_input("Enter the -35 Hexamer Sequence")
-        sequence10 = raw_input("Enter the -10 Hexamer Sequence")
+        while True:
+            sequence35 = raw_input("Enter the -35 Hexamer Sequence:\t").upper()
+            if len(sequence35)!=6:
+                print "Please enter a hexamer sequence (exactly six nucleotides)"
+            else:
+                break
+        while True:
+            sequence10 = raw_input("Enter the -10 Hexamer Sequence:\t").upper()
+            if len(sequence10)!=6:
+                print "Please enter a hexamer sequence (exactly six nucleotides)"
+            else:
+                break
         strength   = float(raw_input("Enter the strength"))
         instances.append(Seq(sequence35))
         instances2.append(Seq(sequence10))
@@ -139,12 +126,22 @@ if (choice == 'y' or choice == 'Y'):
 else:
     pass
 
-choice = raw_input("Do you want to Predict the strength of a Promoter (Y / N)")
-print choice
+choice = raw_input("Do you want to Predict the strength of a Promoter (Y / N):\t")
+# print choice
 
 if (choice == 'y' or choice == 'Y'):
-    sequence35 = raw_input("Enter the -35 Hexamer Sequence")
-    sequence10 = raw_input("Enter the -10 Hexamer Sequence")
+    while True:
+        sequence35 = raw_input("Enter the -35 Hexamer Sequence:\t").upper()
+        if len(sequence35)!=6:
+            print "Please enter a hexamer sequence (exactly six nucleotides)"
+        else:
+            break
+    while True:
+        sequence10 = raw_input("Enter the -10 Hexamer Sequence:\t").upper()
+        if len(sequence10)!=6:
+            print "Please enter a hexamer sequence (exactly six nucleotides)"
+        else:
+            break
     instancesP = instances[:]
     instancesP.append(Seq(sequence35))
     instancesP2 = instances2[:]
@@ -229,16 +226,16 @@ while i<len(outputResult):
     a.append([1,result[i][0],result2[i][0]])
     i +=1
 
-print ""
-print "\t\t\t\t Matrix A (Input Matrix : -35 and -10 Sequence)"
-for x in a:
-    print x
-    print ""
+
+##print "\t\t\t\t Matrix A (Input Matrix : -35 and -10 Sequence)"
+##for x in a:
+##    print x
+##    print ""
 
 # CONSTRUCTION OF B MATRIX - STRENGTH OF -35 AND -10 SEQUENCE
 b =[]
 i = 0
-print len(outputResult)
+# print len(outputResult)
 while i<len(outputResult):
     b += outputResult[i]
     # TO DEAL WITH LOG(0)
@@ -247,21 +244,21 @@ while i<len(outputResult):
     b[i] = math.log(b[i])
     i +=1
 
-print ""
-print "\t\t\t\t Matrix B (Strength)"
-for x in b:
-    print x
-    print ""
+##print ""
+##print "\t\t\t\t Matrix B (Strength)"
+##for x in b:
+##    print x
+##    print ""
 
 # FORMATTING MATRIX A AND B TO OBTAIN MATRIX x AND y
-print "\t\t\t\t Matrix X (Input Matrix : -35 and -10 Sequence)"
+# print "\t\t\t\t Matrix X (Input Matrix : -35 and -10 Sequence)"
 x = np.asarray(a)
-print x
-print ""
-print "\t\t\t\t Matrix Y (Output Matrix : Strength)"
+# print x
+
+# print "\t\t\t\t Matrix Y (Output Matrix : Strength)"
 y = np.asarray(b)
-print y
-print ""
+# print y
+
 
 # CALLING THE GRADIENT DESCENT FUNCTION TO OBTAIN THE THETA PARAMETER
 m, n = np.shape(x)
@@ -269,59 +266,66 @@ numIterations= 100000 #c
 alpha = 0.015 #c
 theta = np.ones(n)
 theta, J_history = gradientDescent(x, y, theta, alpha,m,numIterations)
-print "\t\t\t\t Theta : theta"
-print(theta)
-print ""
+# print "\t\t\t\t Theta : theta"
+# print(theta)
+
 
 # CONSTRUCTING THE HYPOTHESIS
 hx = x.dot(theta)
-print "\t\t\t\t Hypothesis"
-print hx
-print ""
+# print "\t\t\t\t Hypothesis"
+# print hx
+
 
 # DIFFERENCE BETWEEN THE HYPOTHESIS AND OUTPUT MATRIX Y
-print "\t\t\t\t Difference"
+# print "\t\t\t\t Difference"
 diff = hx - y
-print diff
-print ""
+# print diff
+
 
 # DIFFERENCE SQUARED
-print "\t\t\t\t Difference Square"
+# print "\t\t\t\t Difference Square"
 diff_square = diff*diff
-print diff_square
-print ""
+# print diff_square
+
 
 # SUM OF DIFFERENCES
-print "\t\t\t\t Sum"
+# print "\t\t\t\t Sum"
 sum = np.sum(diff_square)
-print sum
-print ""
+# print sum
+
 
 # COST FUNCTION
-print "\t\t\t\t Cost function"
+# print "\t\t\t\t Cost function"
 temp = 1/(2*m)
 cost = temp*sum
-print cost
-print ""
+# print cost
+
 
 # TO OBTAIN R SQUARE VALUE : CORRELATION COEFFICIENT
-print "\t\t\t\t Cost Function"
+# print "\t\t\t\t Cost Function"
 meany = np.mean(y)
 sumsqmeany = np.sum((y-meany)**2)
 sumsqmeanysum = np.sum((y-hx)**2)/sumsqmeany
-print sumsqmeanysum
-print ""
+# print sumsqmeanysum
 
-print "\t\t\t\t R Sqare Value"
-R = 1 - sumsqmeanysum
-print R
 print ""
+print "RESULTS"
+print "======="
 
 if flag == 1:
     strength = np.array([1.0, resultP, resultP2 ]).dot(theta)
-    print "\t\t\t\t Predicted ln(Strength)"
+    print "Predicted Strength:\t\t",
+    print(math.exp(strength))
+    print "Predicted ln(Strength):\t\t",
     print(strength)
-    print ""
+
+print "R-squared value of model:\t",
+R = 1 - sumsqmeanysum
+print R
+print "Adj. R-squared value of model:\t",
+adjR = 1 - (1-R)*(len(instances)-1)/(len(instances)-2-1)
+print adjR
+print ""
 
 # CONSTRUCTION OF THE MULTIVARIENT LINEAR REGRESSION GRAPH
 # THE NUMBER 19 REPRESENTS THE DEFAULT SIZE OF THE DATASET PROVIDED
@@ -329,23 +333,23 @@ fig = plt.figure()
 ax = fig.add_subplot(111, projection = '3d')
 for c, m in [('r','o')]:
     xs = x[0:19,1]
-    print "\t\t\t\t xs Plot for Graph -10 Sequence"
-    print(xs)
-    print ""
+##    print "\t\t\t\t xs Plot for Graph -10 Sequence"
+##    print(xs)
+##    print ""
     ys = x[0:19,2]
-    print "\t\t\t\t ys Plot for Graph -35 Sequence"
-    print (ys)
-    print ""
+##    print "\t\t\t\t ys Plot for Graph -35 Sequence"
+##    print (ys)
+##    print ""
     zs = y[0:19]
-    print "\t\t\t\t zs Plot for Graph Strength"
-    print (zs)
-    print ""
+##    print "\t\t\t\t zs Plot for Graph Strength"
+##    print (zs)
+##    print ""
     ax.scatter(xs, ys,zs, c=c, marker =m)
 
 md = len(y)
-print "\t\t\t\t Total Number of Elements in the Dataset"
-print md
-print ""
+##print "\t\t\t\t Total Number of Elements in the Dataset"
+##print md
+##print ""
 if (md > 19):
     flag2 = 1
     for c,m in [('b','o')]:
