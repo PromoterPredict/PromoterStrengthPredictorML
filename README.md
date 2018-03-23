@@ -21,18 +21,18 @@ General Dependencies
 
 Dependencies to Interface with the Client
 
-* Installation of Webpy a Python Framework
+* Installation of Webpy 
 * Nginx Server
 
-Contribution Guidelines
+Contributions:
 
-* Model.py is the standalone. Install latest versiosn of numpy, Biopython and matplotplib and execute at the OS prompt:
+1. Model.py is the standalone. Install latest versiosn of numpy, Biopython and matplotplib and execute at the OS prompt:
 
   $python model.py
 
-* Finalp.py has the code which is fully interfaced with the web.
+2. Finalp.py has the code which is fully interfaced with the web.
 
-* HOW THE MODEL WORKS FOR PREDICTING AND ALLOWING THE USER TO ADD MORE DATASETS
+HOW THE MODEL WORKS FOR PREDICTING AND ALLOWING THE USER TO ADD MORE DATASETS
 
 * OBTAIN ALL THE INPUTS FROM THE CLIENT AS A SINGLE STRING : Eg TGTGTGTGATGA*TGATGATGTGTG#0.5&
 * [THIS IS JUST A RANDOM SEQENCE TAKEN FOR THE SAKE OF THIS EXAMPLE]
