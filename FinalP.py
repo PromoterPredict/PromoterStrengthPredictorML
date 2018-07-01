@@ -1,4 +1,5 @@
 # Dependencies
+
 from __future__ import division
 import web
 import math
@@ -11,6 +12,7 @@ from Bio.Seq import Seq
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import time
+import string
 
 #                                          NOTE
 #           HOW THE MODEL WORKS FOR PREDICTING AND ALLOWING THE USER TO ADD MORE DATASETS
@@ -97,14 +99,46 @@ class tutorial:
         flag = 0 # Used to check if the user has entered the sequence for which prediction is required
         flag2 = 0
 
-        # DATA SET : 19 SAMPLES OF -35 AND -10 SEQUENCES WITH RESPECTIVE STRENGTH
+        # DATA SET : 18 SAMPLES OF -35 AND -10 SEQUENCES WITH RESPECTIVE STRENGTH
+
+        #filename1 = raw_input("Enter /path/to/filename with promoter sequences of regulon db (csv of -35 hexamer)\t")
+        filename1 = 'Datasets/fimo_35_ff_ed11.csv'
+        #filename2 = raw_input("Enter /path/to/filename with promoter sequences of regulon db (csv of -10 hexamer)\t")
+        filename2 = 'Datasets/fimo_10_ff_ed11.csv'
+
+        infile1 = open(filename1, 'r')
+        infile2 = open(filename2, 'r')
+
+        instances_regdb = list()
+        instances2_regdb = list()
+        #outputResult = list()
+
+        for line in infile1.readlines():
+            if line == '\n':
+                break
+            lines = line.split(',')
+            lines[1] = lines[1][:-1]
+            #   print lines
+            instances_regdb.append(Seq(lines[1].upper()))
+            #   outputResult.append([float(lines[3])])
+
+        for line in infile2.readlines():
+            if line == '\n':
+                break
+            lines = line.split(',')
+            lines[1] = lines[1][:-1]
+            #   print lines
+            instances2_regdb.append(Seq(lines[1].upper()))
+        
+        infile1.close()
+        infile2.close()
+        ##instances, instances2 and outputResult -- all are instantiated for use in rest of the program
 
         # -35 SEQUENCE
         instances = [
         Seq("TTGACG"),
         Seq("TTTACA"),
         Seq("TTGACA"),
-        Seq("CTGATA"),
         Seq("TTGACA"),
         Seq("TTTACG"),
         Seq("TTTACG"),
@@ -121,13 +155,11 @@ class tutorial:
         Seq("TTGACA"),
         Seq("TTGACG")
         ]
-
         # -10 SEQUENCE
         instances2 =[
         Seq("TACAGT"),
         Seq("TATTAT"),
         Seq("TACTGT"),
-        Seq("GATTAT"),
         Seq("TATTGT"),
         Seq("TACTAT"),
         Seq("TATAGT"),
@@ -144,13 +176,11 @@ class tutorial:
         Seq("GATTGT"),
         Seq("TATTGT")
         ]
-
         # STRENGTH OF -35 AND -10 SEQUENCE
         outputResult = [
-        [1.0],
+        [1],
         [0.7],
         [0.86],
-        [0.01],
         [0.72],
         [0.24],
         [0.47],
@@ -159,7 +189,7 @@ class tutorial:
         [0.04],
         [0.33],
         [0.58],
-        [0.0],
+        [0.01],
         [0.01],
         [0.1],
         [0.15],
@@ -173,7 +203,6 @@ class tutorial:
         [1],
         [0.7],
         [0.86],
-        [0.01],
         [0.72],
         [0.24],
         [0.47],
@@ -263,19 +292,17 @@ class tutorial:
             i+=1
 
         # CONSTRUCTION OF THE PSSM MATRIX FOR THE -35 SEQUENCE BASED ON STRENGTH
-        m = motifs.create(instances)
+        m = motifs.create(instances_regdb)
         #print(m.counts);
         pwm = m.counts.normalize(pseudocounts= {'A':0.49, 'C': 0.51, 'G' : 0.51, 'T' : 0.49}                )
         #print(pwm)
         pssm = pwm.log_odds()
         #print(pssm)
 
+        #REGRESSION MODELLING
         if flag == 1:
-            mP = motifs.create(instancesP[:-1])
-            pwmP = mP.counts.normalize(pseudocounts={'A':0.49, 'C': 0.51, 'G' : 0.51, 'T' : 0.49})
-            pssmP = pwmP.log_odds()
             p,o,l,k,m,n = str(s1)
-            resultP = pssmP[p,0] + pssmP[o,1] + pssmP[l,2] + pssmP[k,3] + pssmP[m,4] + pssmP[n,5]
+            resultP = pssm[p,0] + pssm[o,1] + pssm[l,2] + pssm[k,3] + pssm[m,4] + pssm[n,5]
 
         result = []
 
@@ -331,20 +358,18 @@ class tutorial:
             convert10.append(str(instances2[i]))
             i+=1
 
-        # CONSTRUCTION OF THE PSSM MATRIX FOR THE -35 SEQUENCE BASED ON STRENGTH
-        m2 = motifs.create(instances2)
+        # CONSTRUCTION OF THE PSSM MATRIX FOR THE -10 SEQUENCE BASED ON STRENGTH
+        m2 = motifs.create(instances2_regdb)
         #print(m2.counts);
         pwm2 = m2.counts.normalize(pseudocounts={'A':0.49, 'C': 0.51, 'G' : 0.51, 'T' : 0.49})
         #print(pwm2)
         pssm2 = pwm2.log_odds()
         #print(pssm2)
 
+        #REGRESSION MODELLING
         if flag == 1:
-            mP2 = motifs.create(instancesP2[:-1])
-            pwmP2 = mP2.counts.normalize(pseudocounts={'A':0.49, 'C': 0.51, 'G' : 0.51, 'T' : 0.49})
-            pssmP2 = pwmP2.log_odds()
             p2,o2,l2,k2,m2,n2 = str(s2)
-            resultP2 = pssmP2[p2,0] + pssmP2[o2,1] + pssmP2[l2,2] + pssmP2[k2,3] + pssmP2[m2,4] + pssmP2[n2,5]
+            resultP2 = pssm2[p2,0] + pssm2[o2,1] + pssm2[l2,2] + pssm2[k2,3] + pssm2[m2,4] + pssm2[n2,5]
 
         result2 = []
 
@@ -464,21 +489,25 @@ class tutorial:
         R = 1 - sumsqmeanysum
         print R
         print ""
+        print "\t\t\t\t Adj. R Sqare Value"
+        adjR = 1 - (1-R)*(len(instances)-1)/(len(instances)-2-1)
+        print adjR
+        print ""        
 
         # CONSTRUCTION OF THE MULTIVARIENT LINEAR REGRESSION GRAPH
-        # THE NUMBER 19 REPRESENTS THE DEFAULT SIZE OF THE DATASET PROVIDED
+        # THE NUMBER 18 REPRESENTS THE DEFAULT SIZE OF THE DATASET PROVIDED
         fig =plt.figure()
         ax = fig.add_subplot(111, projection = '3d')
         for c, m in [('r','o')]:
-            xs = x[0:19,1]
+            xs = x[0:18,1]
             print "\t\t\t\t xs Plot for Graph -10 Sequence"
             print(xs)
             print ""
-            ys = x[0:19,2]
+            ys = x[0:18,2]
             print "\t\t\t\t ys Plot for Graph -35 Sequence"
             print (ys)
             print ""
-            zs = y[0:19]
+            zs = y[0:18]
             print "\t\t\t\t zs Plot for Graph Strength"
             print (zs)
             print ""
@@ -488,12 +517,12 @@ class tutorial:
         print "\t\t\t\t Total Number of Elements in the Dataset"
         print md
         print ""
-        if (md > 19):
+        if (md > 18):
             flag2 = 1
             for c,m in [('b','o')]:
-                xd = x[19:,1]
-                yd = x[19:,2]
-                zd = y[19:]
+                xd = x[18:,1]
+                yd = x[18:,2]
+                zd = y[18:]
                 ax.scatter(xd, yd, zd, c=c, marker =m)
 
         ax.set_xlabel('-10 Hexamer')
@@ -517,6 +546,12 @@ class tutorial:
         if flag == 1:
             strength = np.array([1.0,   resultP, resultP2 ]).dot(theta)
             finalStrength = strength
+            print "\t\t\t\t Predicted Strength",
+            print math.exp(strength)
+            print ""
+            print "\t\t\t\t Predicted ln(Strength)",
+            print strength
+            print ""            
             #print 'Predicted strength of promoter : %s' % (finalStrength)
             #print 'Correlation Measure Sqare Value : %s' % (R)
             pri = '<div class="col s12 m5 l5"><p class="para"><span class="highlight"><i class="fa fa-bullseye fa-2x" aria-hidden="true"></i></span><br><span class="highlight">Predicted ln(Strength)</span><br> %s </p>' % finalStrength
