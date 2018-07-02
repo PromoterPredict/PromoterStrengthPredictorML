@@ -132,7 +132,7 @@ def gradientDescent(x, y, theta, alpha, m, numIterations):
 
 #choice = raw_input("Do you want to enter pseudocounts or use defaults (Y / N):\t")
 
-choice = raw_input("Do you have novel characterized promoters to add to the dataset (Y / N):\t")
+choice = raw_input("Would you like to add your newly characterized promoters to the dataset (Y / N):\t")
 # print choice
 
 if (choice == 'y' or choice == 'Y'):
