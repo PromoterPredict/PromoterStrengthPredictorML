@@ -132,7 +132,7 @@ def gradientDescent(x, y, theta, alpha, m, numIterations):
 
 #choice = raw_input("Do you want to enter pseudocounts or use defaults (Y / N):\t")
 
-choice = raw_input("Do you have novel characterized promoters to add to the dataset (Y / N):\t")
+choice = raw_input("Would you like to add your newly characterized promoters to the dataset (Y / N):\t")
 # print choice
 
 if (choice == 'y' or choice == 'Y'):
@@ -252,7 +252,7 @@ while i<len(outputResult):
     b[i] = math.log(b[i])
     i +=1
 
-# outfile2 = open('/home/keshav/Projects/PromoterStrengthPredictorML/pwmScore_lessRefinedRegulon.csv','w')
+# outfile2 = open('pwmScores.csv','w')
 # for i in range(len(outputResult)):
 #     record = str(result[i][0])+','+ str(result2[i][0]) + ',' + str(result[i][0]+result2[i][0]) + ',' +str(outputResult[i][0]) +','+ str(b[i])+'\n'
 #     outfile2.write(record)
