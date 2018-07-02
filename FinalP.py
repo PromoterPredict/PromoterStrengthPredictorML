@@ -535,7 +535,7 @@ class tutorial:
         fig1.savefig('Multivariant.png', dpi=100)
         data_uri = open('Multivariant.png', 'rb').read().encode('base64').replace('\n', '')
         graph = '<div class="row"><div class="col s12 m12 l12"><h2><center><i class="fa fa-line-chart fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Regression Model And Predicted Output</center></h2></div></div>'
-        img_tag = '<div class="row"><div class="col s12 m7 l7"><img id="reg" src="data:image/png;base64,%s"></div>' % data_uri
+        img_tag = '<div class="row"><div class="col s12 m7 l7"><img id="reg" src="data:image/png;base64,%s"><br><p class="para"><span class="highlight redDot"><i class="fa fa-circle" aria-hidden="true"></i></span>&nbsp;&nbsp;<span class="highlight">Existing Promoters</span>&nbsp;&nbsp;<span class="highlight blueDot"><i class="fa fa-circle" aria-hidden="true"></i></span>&nbsp;&nbsp;<span class="highlight">Dynamically Added Promoters</span></p></div>' % data_uri
         #print theta, J_history
         plot(np.arange(numIterations), J_history)
         xlabel('Iterations')
@@ -546,25 +546,29 @@ class tutorial:
         if flag == 1:
             strength = np.array([1.0,   resultP, resultP2 ]).dot(theta)
             finalStrength = strength
+            expStrength = math.exp(strength)
             print "\t\t\t\t Predicted Strength",
-            print math.exp(strength)
+            print expStrength
             print ""
             print "\t\t\t\t Predicted ln(Strength)",
             print strength
             print ""            
             #print 'Predicted strength of promoter : %s' % (finalStrength)
             #print 'Correlation Measure Sqare Value : %s' % (R)
-            pri = '<div class="col s12 m5 l5"><p class="para"><span class="highlight"><i class="fa fa-bullseye fa-2x" aria-hidden="true"></i></span><br><span class="highlight">Predicted ln(Strength)</span><br> %s </p>' % finalStrength
-            key1 = '<p class="para"><span class="highlight redDot"><i class="fa fa-circle" aria-hidden="true"></i></span><br><span class="highlight">Existing Dataset</span></p>'
-            key2 = '<p class="para"><span class="highlight blueDot"><i class="fa fa-circle" aria-hidden="true"></i></span><br><span class="highlight">User Added Data Points</span> <br> (If Dynamic Model in Use)</p>'
-            rsqare = '<p class="para"><span class="highlight"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i></span><br><span class="highlight">Correlation Measure Sqare Value</span> <br> %s </p></div></div>' % R
+            pri = '<div class="col s12 m5 l5"><p class="para"><span class="highlight"><i class="fa fa-bullseye fa-2x" aria-hidden="true"></i></span><br><span class="highlight">Predicted ln(Strength)</span><br> %s </p>' % finalStrength 
+            pri2 = '<p class="para"><span class="highlight"><i class="fa fa-check-circle-o fa-2x" aria-hidden="true"></i></span><br><span class="highlight">Exp(Predicted ln(Strength))</span><br> %s </p>' % expStrength
+            # key1 = '<p class="para"><span class="highlight redDot"><i class="fa fa-circle" aria-hidden="true"></i></span><span class="highlight">Existing Dataset</span></p>'
+            # key2 = '<p class="para"><span class="highlight blueDot"><i class="fa fa-circle" aria-hidden="true"></i></span><span class="highlight">User Added Data Points</span> <br> (If Dynamic Model in Use)</p>'
+            rsqare = '<p class="para"><span class="highlight"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i></span><br><span class="highlight">R-Squared Goodness-of-Fit</span> <br> %s </p></div></div>' % R
+            finalOutput = graph + img_tag + pri + pri2 + rsqare
         else:
             pri = '<div class="col s12 m5 l5"><p></p>'
-            key1 = '<p class="para"><span class="highlight redDot"><i class="fa fa-circle" aria-hidden="true"></i></span><br><span class="highlight">Existing Dataset</span></p>'
-            key2 = '<p class="para"><span class="highlight blueDot"><i class="fa fa-circle" aria-hidden="true"></i></span><br><span class="highlight">User Added Data Points</span> <br> (If Dynamic Model in Use)</p>'
-            rsqare = '<p class="para"><span class="highlight"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i></span><br><span class="highlight">Correlation Measure Sqare Value</span> <br> %s </p></div></div>' % R
+            # key1 = '<p class="para"><span class="highlight redDot"><i class="fa fa-circle" aria-hidden="true"></i></span><span class="highlight">Existing Dataset</span></p>'
+            # key2 = '<p class="para"><span class="highlight blueDot"><i class="fa fa-circle" aria-hidden="true"></i></span><span class="highlight">User Added Data Points</span> <br> (If Dynamic Model in Use)</p>'
+            rsqare = '<p class="para"><span class="highlight"><i class="fa fa-gavel fa-2x" aria-hidden="true"></i></span><br><span class="highlight">R-Squared Goodness-of-Fit</span> <br> %s </p></div></div>' % R
+            finalOutput = graph + img_tag + pri + rsqare
 
-        return make_text(graph + img_tag + pri + key1 + key2 + rsqare)
+        return make_text(finalOutput)
 
 if __name__ == '__main__':
     app.run()
