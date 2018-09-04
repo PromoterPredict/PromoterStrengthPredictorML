@@ -532,7 +532,7 @@ class tutorial:
         # TO SAVE THE GRAPH AS AN IMAGE
         fig1 = plt.gcf()
         # To display image in console : plt.show()
-        fig1.savefig('Multivariant.png', dpi=100)
+        fig1.savefig('Multivariant.png', format='png', dpi=300)
         data_uri = open('Multivariant.png', 'rb').read().encode('base64').replace('\n', '')
         graph = '<div class="row"><div class="col s12 m12 l12"><h2><center><i class="fa fa-line-chart fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Regression Model And Predicted Output</center></h2></div></div>'
         img_tag = '<div class="row"><div class="col s12 m7 l7"><img id="reg" src="data:image/png;base64,%s"></div>' % data_uri
