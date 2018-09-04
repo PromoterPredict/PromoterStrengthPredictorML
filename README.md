@@ -25,7 +25,7 @@ Dependencies to Interface with the Client
 
 Contributions:
 
-1. Model.py is the standalone. Install latest versiosn of numpy, Biopython and matplotplib and execute at the OS prompt:
+1. model.py is the standalone. Install the latest version of numpy, Biopython and matplotplib; ensure that the path to the libraries of -35 and -10 motifs (available in the Datasets folder) in the program is correct, and execute:
 
     $python model.py
 
@@ -39,7 +39,7 @@ How to use the software/web-server:
 
 Refer our manuscript for further details.
 
-Bharanikumar, Premkumar and Palaniappan, PromoterPredict: sequence-based modelling yields logarithmic dependence between promoter strength and sequence. PeerJ, 2018
+Bharanikumar, Premkumar, and Palaniappan. PromoterPredict: Sequence-based modelling of Escherichia coli sigma70 promoter strength yields logarithmic dependence between promoter strength and sequence. PeerJ, 2018
 
 Authors:
  
