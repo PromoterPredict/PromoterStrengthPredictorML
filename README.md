@@ -7,8 +7,7 @@ Machine Learning using Multivariate Linear Regression to Predict the Strength of
 
 Quick summary
 
-This website presents a Python based machine learning platform to predict the strength of sigma70 core promoters in Escherichia coli to ease the need for laborious and expensive experiments.
-Here multi-variate linear regression has been used where the parameters were optimized with gradient descent. The training data set used here is the promoter collection characterized by the Anderson lab at UC Berkeley (http://parts.igem.org/Promoters/Catalog/Anderson).
+This website presents a Python based machine learning platform to predict the strength of sigma70 core promoters in Escherichia coli to ease the need for laborious and expensive experiments. Here multi-variate linear regression has been used where the parameters were optimized with gradient descent. The training data set used here is the promoter collection characterized by the Anderson lab at UC Berkeley (http://parts.igem.org/Promoters/Catalog/Anderson). The -35 and -10 motifs were extracted from RegulonDB (as described in Bharanikumar, Premkumar and Palaniappan, PromoterPredict: sequence-based modelling yields logarithmic dependence between promoter strength and sequence. PeerJ, 2018). They are available in the Datasets folder and are used by the standalone program (model.py) for predicting promoter strength.
 
 How to Set it up
 
@@ -32,37 +31,15 @@ Contributions:
 
 2. Finalp.py has the code which is fully interfaced with the web.
 
-HOW THE MODEL WORKS FOR PREDICTING AND ALLOWING THE USER TO ADD MORE DATASETS
+How to use the software/web-server:
 
-* OBTAIN ALL THE INPUTS FROM THE CLIENT AS A SINGLE STRING : Eg TGTGTGTGATGA*TGATGATGTGTG#0.5&
-* [THIS IS JUST A RANDOM SEQENCE TAKEN FOR THE SAKE OF THIS EXAMPLE]
+1. Enter the -35 and -10 hexamers of the promoter in question (whose strength needs to be predicted):
+2. You could data on characterized promoters to add to the dataset used for model building. First specify the number of instances you wish to add; next specify the -35 motif (string in nucleotide alphabet), -10 motif (string in nucleotide alphabet) and the promoter strength (float) for each promoter instance in that order.
+3. The predicted strength is returned, along with the re-computed goodness of fit and regression surface of the possibly updated model.
 
-* EXAMPLE OF STRING SENT FROM SERVER : TGTGTGTGATGA*TGATGATGTGTG#0.5&
+Refer our manuscript for further details.
 
-* -35 AND -10 SEQUENCE THE USER ENTERS FOR WHICH HE REQUIRES THE PREDICTED STRENGTH (TGTGTGTGATGA*)
-* -35 SEQUENCE : TGTGTG
-* -10 SEQUENCE : TGATGA
-
-* SEPARATOR *
-
-* -35 AND -10 SEQUENCE THE USER ENTERS AS DYNAMIC INPUT WHICH IS TO BE ADDED TO THE DATA SET (TGATGATGTGTG#)   
-* -35 SEQUENCE : TGATGA
-* -10 SEQUENCE : TGTGTG
-* SUPPOSE THE USER ENTERS MORE THAN 1 DYNAMIC INPUT, LETS SAY 2 INPUT SETS (TGATGATGTGTGATGATGGATTGA*)
-* SEQUENCE 1 : TGATGATGTGTG
-* SEQUENCE 2 : ATGATGGATTGA
-* -35 SEQUENCE1 : TGATGA
-* -10 SEQUENCE1 : TGTGTG
-* -35 SEQUENCE2 : ATGATG
-* -10 SEQUENCE2 : GATTGA
-
-* SEPARATOR #
-
-* THE STRENGTH FOR THE RESPECTIVE -35 AND -10 SEQUENCE THE USER ENTERS AS DYNAMIC INPUT WHICH IS TO BE ADDED TO THE DATA SET(0.5&)
-* STRENGTH : 0.5
-* SUPPOSE THE USER ENTERS MORE THAN 1 DYNAMIC INPUT, LETS SAY 2 INPUT SETS (0.5&0.6&)
-* STRENGTH1 : 0.5
-* STRENGTH2 : 0.6
+Bharanikumar, Premkumar and Palaniappan, PromoterPredict: sequence-based modelling yields logarithmic dependence between promoter strength and sequence. PeerJ, 2018
 
 Authors:
  
