@@ -546,14 +546,9 @@ class tutorial:
         if flag == 1:
             strength = np.array([1.0,   resultP, resultP2 ]).dot(theta)
             finalStrength = strength
-<<<<<<< HEAD
-            print "\t\t\t\t Predicted Strength",
-            print math.exp(strength)
-=======
             expStrength = math.exp(strength)
             print "\t\t\t\t Predicted Strength",
             print expStrength
->>>>>>> 83b451b6eb37c4dc181468b5f9b4b38df8357e3a
             print ""
             print "\t\t\t\t Predicted ln(Strength)",
             print strength
