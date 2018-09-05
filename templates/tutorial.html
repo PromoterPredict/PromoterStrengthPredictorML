@@ -282,7 +282,6 @@ $def with (form, text)
                         <li><a href="#about">About Us</a></li>
                         <li><a href="#contact">Contact Us</a></li>
                     </ul>
-<<<<<<< HEAD
                 </div>
             </nav>
         </div>
@@ -415,188 +414,10 @@ $def with (form, text)
                             <i>
                                 Ramit is an undergraduate student in his final year studying Biotechnology Engineering at Sri Venkateswara College of Engineering, Anna University. He is looking to carve out a career in synthetic biology given the exciting possibilities that the field has. He was an integral part of his colleges iGEM team in 2016. He is the team of leader of his college’s 2017 iGEM team.<br>
                                 After learning about the exciting prospects of Machine learning algorithms, he intends to apply them to biological data sets to make meaningful inferences from them or build tools that can save time and money in the lab for Biologists. He believes that a true product of engineering is often one that is born out of a mixture of different fields and that combining the prowess of two burgeoning fields of the 21st century – Synthetic biology and Machine Learning could lead to exciting products and services in the future. 
-=======
-                </div>
-            </nav>
-        </div>
-        
-        <!-- Container
-        =====================================================================--> 
-        <div class="container">
-
-            <!-- The Dynamic Form to Accept Inputs - The Application
-            =====================================================================-->     
-            <section id="model">
-                <div class="row">
-                    <div class="col s12 m12 l12">       
-                        <h1><center>Promoter Strength Predictor</center></h1>
-                    </div>
-                </div>               
-                <form class="form" method="post" id="pass"> 
-                    $:form.render()  
-                </form>
-                <form id="countDataset">
-                    <div class="row">
-                        <div class="col s12 m12 l12"> 
-                            <p class="para">
-                                Welcome to our utility for promoter strength prediction. See how the <a href="#intro">Application Works</a>.               
-                            </p>
-                        </div>   
-                    </div>     
-                    <div class="row">
-                        <div class="col s12 m12 l12">
-                            <label> Enter -35 Hexamer Sequence </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12 m8 l8">
-                            <input type="text" class="predict" id="pred" name="pred" placeholder="6 Letter Hexamer in Capitals Eg TACAAC">
-                        </div>   
-                    </div> 
-                    <div class="row">
-                        <div class="col s12 m12 l12">
-                            <label> Enter -10 Hexamer Sequence  </label>
-                        </div>
-                    </div>        
-                    <div class="row">
-                        <div class="col s12 m8 l8"> 
-                            <input type="text" class="predict" id="pred2" name="pred2" placeholder="6 Letter Hexamer in Capitals Eg TACAGA"> 
-                        </div>        
-                    </div> 
-                    <div class="row">
-                        <div class="col s12 m12 l12">         
-                            <label><span class="highlight">Dynamic model :</span> Would you like to add newly characterized promoters to the dataset <span class="highlight">( Optional )</span>  </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s6 m6 l6"> 
-                            <input type="text" id="count" name="count" placeholder="Enter a Number Eg. 2, 3, 7 etc.">
-                        </div> 
-                        <div class="col s6 m6 l6">       
-                            <!--<input type="button" name="Submit" id="Hit" value="Go">-->
-                            <a class="waves-effect waves-light btn" id="Hit"><i class="material-icons">add</i></a>
-                        </div>
-                    </div> 
-                    <div id="there">
-                    </div>
-                    <div class="row" id="all1">
-                        <div class="col s12 m12 l12">   
-                            <!--<input type="submit" class="button1" id="all" value="All Done !"/>--> 
-                            <button id="all" class="btn waves-effect waves-light button1" type="submit" name="action" value="All Done !">Predict<i class="material-icons right">send</i>
-                            </button>
-                        </div>
-                    </div>                  
-                </form>       
-                <div id="foo">
-                    $text
-                </div> 
-            </section>     
-
-            <!-- Application Working
-            =====================================================================-->
-            <section id="intro">    
-                <div class="row">
-                    <div class="col s12 m12 l12">       
-                        <h2><center> How Does Our Application Work ?</center></h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12 m12 l12"> 
-                        <p class="para">This website serves as a Python based machine learning platform to predict the strength of &sigma;<sup>70</sup> core promoters in Escherichia coli in a manner that subverts the need for tedious experiments and is cost effective.<br>
-                        </p>                
-                    </div>   
-                </div> 
-                <div class="row">
-                    <div class="col s12 m12 l12"> 
-                        <p class="para">Here the user will have to enter the -10 and -35 regions in the input boxes and the platform will return the strength of the input promoter relative to the strength of the strongest Anderson promoter. The dynamic model is optinal and the user can click "Predict" once the Sequences are entered.            
-                        </p>
-                    </div>   
-                </div>                     
-                <div class="row">
-                    <div class="col s12 m12 l12"> 
-                        <p class="para">The advent of genetic engineering over the last few decades has opened up new avenues for biologists. One of them has been expressing proteins in organisms of their choice and altering the level of protein expression. Escherichia coli  has been the lab workhorse and ideal model organism for many years, given the ease with which it can be grown in a lab, its extensive characterization of a variety of strains and high level of safety. The sigma 70 promoters in the organism are ubiquitously used by genetic engineers to initiate transcription. Yet, their characterization in a lab remains to be a time consuming and expensive process.</p>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Author's
-            =====================================================================-->  
-            <section id="about">
-                <div class="row">
-                    <div class="col s12 m12 l12">       
-                        <h2><center>Who We Are ?</center></h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12 m4 l4">
-                        <img class="teamAshok" src="/static/images/Ashok1.jpg">       
-                    </div>
-                    <div class="col s12 m8 l8">
-                        <h1 class="authorName">Ashok Palaniappan</h1>
-                        <p class="individuals">
-                            <i>
-                                Ashok Palaniappan is very interested in applying computational thinking to solve difficult biological problems. He has demonstrated expertise in the development of computational methods, notably the use of Fourier spectrum analysis to detect periodicity in evolutionary conservation of protein secondary structure. 
-                            </i>     
-                        </p>        
-                    </div>
-                </div>
-                <div class="row">
-                        <div class="col s12 m12 l12">
-                            <p class="individuals">
-                                <i>        
-                                    He has shown ability to develop novel approaches for difficult biological problems, notably the identification of stage-specific biomarkers in colon  and liver cancer tumorigenesis, progression and metastasis. Ashok obtained his PhD from the University of Illinois at Urbana-Champaign, USA (2005). He is Senior Assistant Professor in the School of Chemical and Biotechnology, Sastra University, Thanjavur 613401. 
-                                </i>
-                            </p>       
-                        </div>
-                    </div>                
-                <div class="row">
-                    <div class="col s12 m12 l12">
-                        <p class="individuals">
-                            <i>        
-                                1. A. Palaniappan, E. Jakobsson,  Fourier analysis of conservation patterns in protein secondary structure, Computat Struct Biotechnol J 2017, 15, 265-271. <br>
-                                2. A. Palaniappan, K. Ramar, S. Ramalingam, Computational identification of novel stage specific biomarkers in colorectal cancer progression. PLOS ONE 2016, 11(5): e0156665. doi:10.1371/journal.pone.0156665 <br>
-                                3. A. Sarathi, A. Palaniappan, Novel significant stage-specific differentially expressed genes in liver hepatocellular carcinoma. bioRxiv 2018, 342204; doi: https://doi.org/10.1101/342204.
-                            </i>    
-                        </p>       
-                    </div>
-                </div>      
-                <div class="row">
-                    <div class="col s12 m4 l4">
-                        <img class="teamRamit" src="/static/images/Ramit.jpg">       
-                    </div>
-                    <div class="col s12 m8 l8">
-                        <h1 class="authorName">Ramit B</h1>
-                        <p class="individuals">
-                            <i>
-                                Ramit is an undergraduate student in his final year studying Biotechnology Engineering at Sri Venkateswara College of Engineering, Anna University. He is looking to carve out a career in synthetic biology given the exciting possibilities that the field has. He was an integral part of his colleges iGEM team in 2016. He is the team of leader of his college’s 2017 iGEM team. 
                             </i>    
                         </p>        
                     </div>
                 </div> 
-                <div class="row">
-                    <div class="col s12 m12 l12">
-                        <p class="individuals">
-                            <i>        
-                                After learning about the exciting prospects of Machine learning algorithms, he intends to apply them to biological data sets to make meaningful inferences from them or build tools that can save time and money in the lab for Biologists. He believes that a true product of engineering is often one that is born out of a mixture of different fields and that combining the prowess of two burgeoning fields of the 21st century – Synthetic biology and Machine Learning could lead to exciting products and services in the future. 
-                            </i>
-                        </p>       
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12 m4 l4">
-                        <img class="teamKeshav" src="/static/images/Keshav.jpg">       
-                    </div>
-                    <div class="col s12 m8 l8">
-                        <h2 class="authorName">Keshav Aditya RP</h2>
-                        <p class="individuals">
-                            <i>
-                                Keshav Aditya is currently a final year undergraduate student studying Computer Science Engineering at Sri Venkateswara College of Engineering, Anna University. He is a part of his colleges 2017 iGEM team. He is very passionate about programming and is looking to become a software developer. Apart from this he also an excellent sportman.   
->>>>>>> 83b451b6eb37c4dc181468b5f9b4b38df8357e3a
-                            </i>    
-                        </p>        
-                    </div>
-                </div> 
-<<<<<<< HEAD
                 <div class="row">
                     <div class="col s12 m12 l12">
                         <h2 class="authorName">Keshav Aditya RP</h2>
@@ -606,15 +427,6 @@ $def with (form, text)
                                 He is a Full-Stack Web Developer and Platform Independent Mobile Application Developer. He has also deployed Machine Learning algorithms for various problems. He's starting to explore new and exciting avenues such as deep learning and looks to implement and work with sophisticated learning algorithms in the future.   
                             </i>    
                         </p>        
-=======
-                <div class="row"> 
-                    <div class="col s12 m12 l12">
-                        <p class="individuals">
-                            <i>        
-                                He is a Full-Stack Web Developer and Platform Independent Mobile Application Developer. He has also deployed Machine Learning algorithms for various problems. He's starting to explore new and exciting avenues such as deep learning and looks to implement and work with sophisticated learning algorithms in the future.
-                            </i>
-                        </p>       
->>>>>>> 83b451b6eb37c4dc181468b5f9b4b38df8357e3a
                     </div>
                 </div> 
             </section> 
