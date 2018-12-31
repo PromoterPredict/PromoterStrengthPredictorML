@@ -9,7 +9,7 @@ Quick summary
 
 This website presents a Python based machine learning platform to predict the strength of sigma70 core promoters in Escherichia coli to ease the need for laborious and expensive experiments. Here multi-variate linear regression has been used where the parameters were optimized with gradient descent. The training data set used here is the promoter collection characterized by the Anderson lab at UC Berkeley (http://parts.igem.org/Promoters/Catalog/Anderson). The -35 and -10 motifs were extracted from RegulonDB (as described in Bharanikumar, Premkumar and Palaniappan, PromoterPredict: sequence-based modelling yields logarithmic dependence between promoter strength and sequence. PeerJ, 2018). They are available in the Datasets folder and are used by the standalone program (model.py) for predicting promoter strength.
 
-How to Set it up
+How to Set it up:
 
 General Dependencies
 
