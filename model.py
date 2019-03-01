@@ -212,7 +212,7 @@ while i < len(instances2):
     convert10.append(str(instances2[i]))
     i+=1
 
-# GENERATIVE MODELLING -- CONSTRUCTION OF THE PSSM MATRIX FOR THE -35 SEQUENCE
+# GENERATIVE MODELLING -- CONSTRUCTION OF THE PSSM MATRIX FOR THE -10 SEQUENCE
 m2 = motifs.create(instances2_regdb)
 #print(m2.counts);
 pwm2 = m2.counts.normalize(pseudocounts={'A':0.49, 'C': 0.51, 'G' : 0.51, 'T' : 0.49})
