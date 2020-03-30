@@ -1,12 +1,10 @@
-$def with (form, text)
-
 <!doctype html>
 
 <html>
 
     <head>
         <title>Promoter Strength Predictor</title> 
-        <link rel="icon" type="image/png" href="/static/images/favicon1.png">
+        <link rel="icon" type="image/png" href="images/favicon1.png">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -14,10 +12,11 @@ $def with (form, text)
         <meta name="description" content="Machine Learning using Multivarient Linear Regression to Predict the Strength of a Promoter">
         <meta name="author" content="Ashok Palaniappan, Ramit Kumar, Keshav Aditya RP">    
         <meta http-equiv="pragma" content="no-cache" />         
-        <script type="text/javascript" src="/static/jquery.js"></script> 
+        <script type="text/javascript" src="jquery.js"></script> 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="/static/font-awesome-4.7.0/css/font-awesome.min.css">
-        <link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.min.css"  media="screen,projection"/>
+        <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+        <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+        <!-- $def with (form, text) -->
         
         <!-- Main Stylesheet
         =====================================================================-->             
@@ -37,7 +36,7 @@ $def with (form, text)
                 color: #26a69a;
             }
 
-            form{
+            #countDataset{
                 padding: 2%;
                 margin: 2%;
                 margin-left: 15%;
@@ -227,7 +226,8 @@ $def with (form, text)
                 });
                 
                 // To Combine all the Input Field Values into a Single String
-                jQuery(".button1").click(function() {
+                jQuery("#all").click(function() {
+                    console.log("Ok");
 
                     jQuery('.predict').each(function(){
                     el = jQuery(this).val();
@@ -248,17 +248,26 @@ $def with (form, text)
                     finalString += el + "&"; 
                 });                    
                     console.log(finalString);
-                    var input_string = $$("input#textfield").val();
+                    // var input_string = $$("input#textfield").val();
 
+                    var server = "http://127.0.0.1:5000";
+                    var appdir='/fetchData';
                     //Ajax Asynchronous Call to Send the Collected Field Values as a Single String to the server and to also Get back a Response from the server with the Result
                     jQuery.ajax({
                         type: "POST",
+                        url:server+appdir,
+                        dataType: 'json',
                         data: 
                         {
-                            textfield : finalString
+                            finalString : finalString
                         },
                         success: function(data) {
-                            jQuery('#foo').html(data).hide().fadeIn(1500);
+                            data = data["result"];
+                            console.log("Received Data");
+                            console.log(data);
+                            // jQuery('#foo').html(data).hide().fadeIn(1500);
+                            jQuery("#foo").empty();
+                            jQuery("#foo").append(data);
                         },
                     });
                     finalString = "";
@@ -298,10 +307,7 @@ $def with (form, text)
                         <h1><center>Promoter Strength Predictor</center></h1>
                     </div>
                 </div>               
-                <form class="form" method="post" id="pass"> 
-                    $:form.render()  
-                </form>
-                <form id="countDataset">
+                <div id="countDataset">
                     <div class="row">
                         <div class="col s12 m12 l12"> 
                             <p class="para">
@@ -348,13 +354,12 @@ $def with (form, text)
                     <div class="row" id="all1">
                         <div class="col s12 m12 l12">   
                             <!--<input type="submit" class="button1" id="all" value="All Done !"/>--> 
-                            <button id="all" class="btn waves-effect waves-light button1" type="submit" name="action" value="All Done !">Predict<i class="material-icons right">send</i>
+                            <button id="all" class="btn waves-effect waves-light button1" type="button" value="All Done !">Predict<i class="material-icons right">send</i>
                             </button>
                         </div>
                     </div>                  
-                </form>       
+                </div>       
                 <div id="foo">
-                    $text
                 </div> 
             </section>     
 
