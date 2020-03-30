@@ -64,7 +64,7 @@ oauthlib==3.1.0
 olefile==0.45.1
 opt-einsum==3.2.0
 pexpect==4.2.1
-Pillow==5.1.0
+Pillow==6.2.0
 pipenv==2018.11.26
 protobuf==3.11.3
 pyasn1==0.4.8
