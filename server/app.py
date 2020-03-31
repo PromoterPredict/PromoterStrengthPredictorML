@@ -2,8 +2,8 @@ from __future__ import division
 
 from flask import Flask, request, jsonify
 import json
-import flup
-import web
+# import flup
+# import web
 import math
 import numpy as np
 from pylab import plot, show, xlabel, ylabel
