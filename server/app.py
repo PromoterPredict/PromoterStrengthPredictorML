@@ -539,8 +539,7 @@ def POST(responseReceived):
 def fetchData():
     print ("Request Received")
     receivedData = request.form['finalString']
-    # print (receivedData)
-    # print ("lol")
+    print (receivedData)
     output = POST(receivedData)
     # print (output)
     response = jsonify(output)
@@ -549,4 +548,4 @@ def fetchData():
     return response
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
